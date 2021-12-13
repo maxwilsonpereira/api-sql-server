@@ -1,0 +1,32 @@
+*** On MySQL Workbench you can do everything with the GUI (Graphical User Interface)
+using the right mouse click.
+Or use these SQL commands to create the SCHEMA "api_sql_maxmix"
+with the table "users":
+1-
+CREATE SCHEMA `api_sql_maxmix`;
+USE `api_sql_maxmix`;
+2-
+CREATE TABLE `api_sql_maxmix`.`users` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `firstname` VARCHAR(45) NOT NULL,
+  `surname` VARCHAR(45) NOT NULL,
+  `birthday` VARCHAR(12) NOT NULL,
+  `email` VARCHAR(45) NOT NULL,
+  `sex` VARCHAR(8) NOT NULL,
+  `password` VARCHAR(120) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE);
+
+ON phpMyAdmin:
+CREATE TABLE `u705692751_api_sql_maxmix`.`users` ( 
+  `id` INT NOT NULL AUTO_INCREMENT , 
+  `firstname` VARCHAR(45) NOT NULL , 
+  `surname` VARCHAR(45) NOT NULL , 
+  `birthday` VARCHAR(12) NOT NULL , 
+  `email` VARCHAR(45) NOT NULL , 
+  `sex` CHAR(8) NOT NULL , 
+  `password` VARCHAR(120) NOT NULL , 
+  PRIMARY KEY (`id`), 
+  UNIQUE (`email`)) 
+  ENGINE = InnoDB;
