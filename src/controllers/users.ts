@@ -8,7 +8,6 @@ export const getUsers: RequestHandler = async (req, res, next) => {
   dbCon.query('SELECT * FROM users', (err: any, result: user[]) => {
     if (!err) {
       res.send(result);
-      console.log(result);
     } else {
       console.log(err);
       res.send({
@@ -21,7 +20,6 @@ export const getUsers: RequestHandler = async (req, res, next) => {
 
 // CREATE USER ****************************************
 export const postUser: RequestHandler = async (req, res, next) => {
-  console.log('SERVER ERROR postUser');
   const firstname = req.body.firstname;
   const surname = req.body.surname;
   const birthday = req.body.birthday;

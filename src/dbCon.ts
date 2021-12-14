@@ -6,11 +6,6 @@ const dbCon = mysql.createConnection({
   password: process.env.password,
   host: process.env.host,
 });
-
-console.log('database: ', process.env.database);
-console.log('user: ', process.env.user);
-console.log('password: ', process.env.password);
-console.log('host: ', process.env.host);
 dbCon.connect(function (err) {
   if (err) {
     return console.error('error: ' + err.message);
