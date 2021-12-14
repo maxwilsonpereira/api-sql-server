@@ -14,6 +14,7 @@ const getUsers = async (req, res, next) => {
             console.log(result);
         }
         else {
+            console.log(err);
             res.send({
                 error: true,
                 message: 'Oops! We had a problem! Please try again later.',
@@ -24,6 +25,7 @@ const getUsers = async (req, res, next) => {
 exports.getUsers = getUsers;
 // CREATE USER ****************************************
 const postUser = async (req, res, next) => {
+    console.log('SERVER ERROR postUser');
     const firstname = req.body.firstname;
     const surname = req.body.surname;
     const birthday = req.body.birthday;
@@ -37,13 +39,16 @@ const postUser = async (req, res, next) => {
             res.send({ message: 'User created!', id: result.insertId });
         }
         else {
-            if (err.code === 'ER_DUP_ENTRY')
+            if (err.code === 'ER_DUP_ENTRY') {
                 res.send({ error: true, message: 'Email already registered!' });
-            else
+            }
+            else {
                 res.send({
                     error: true,
                     message: 'Oops! We had a problem! Please try again later.',
                 });
+            }
+            console.log(err);
         }
     });
 };

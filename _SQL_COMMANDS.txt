@@ -5,7 +5,7 @@ with the table "users":
 1-
 CREATE SCHEMA `api_sql_maxmix`;
 USE `api_sql_maxmix`;
-2-
+2- With LOCALHOST USER:
 CREATE TABLE `api_sql_maxmix`.`users` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `firstname` VARCHAR(45) NOT NULL,
@@ -17,6 +17,20 @@ CREATE TABLE `api_sql_maxmix`.`users` (
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
   UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE);
+
+2- WITH HEROKU MySQL Workbench USER:
+CREATE TABLE `heroku_798b538acdb89cb`.`users` (
+  `id` INT(12) NOT NULL AUTO_INCREMENT,
+  `firstname` VARCHAR(45) NOT NULL,
+  `surname` VARCHAR(45) NOT NULL,
+  `birthday` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(45) NOT NULL,
+  `sex` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC),
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC));
+
 
 ON phpMyAdmin:
 CREATE TABLE `u705692751_api_sql_maxmix`.`users` ( 

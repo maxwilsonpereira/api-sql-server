@@ -10,6 +10,7 @@ export const getUsers: RequestHandler = async (req, res, next) => {
       res.send(result);
       console.log(result);
     } else {
+      console.log(err);
       res.send({
         error: true,
         message: 'Oops! We had a problem! Please try again later.',
@@ -20,6 +21,7 @@ export const getUsers: RequestHandler = async (req, res, next) => {
 
 // CREATE USER ****************************************
 export const postUser: RequestHandler = async (req, res, next) => {
+  console.log('SERVER ERROR postUser');
   const firstname = req.body.firstname;
   const surname = req.body.surname;
   const birthday = req.body.birthday;
@@ -35,13 +37,15 @@ export const postUser: RequestHandler = async (req, res, next) => {
       if (!err) {
         res.send({ message: 'User created!', id: result.insertId });
       } else {
-        if (err.code === 'ER_DUP_ENTRY')
+        if (err.code === 'ER_DUP_ENTRY') {
           res.send({ error: true, message: 'Email already registered!' });
-        else
+        } else {
           res.send({
             error: true,
             message: 'Oops! We had a problem! Please try again later.',
           });
+        }
+        console.log(err);
       }
     }
   );
