@@ -1,7 +1,7 @@
 import { RequestHandler } from 'express';
 // import bcrypt from 'bcryptjs'; // npm install --save bcryptjs
 import dbCon from '../dbCon';
-import { user } from '../models/user';
+import { user, reconnect } from '../models/user';
 
 // GET ALL USERS ****************************************
 export const getUsers: RequestHandler = async (req, res, next) => {
@@ -16,8 +16,8 @@ export const getUsers: RequestHandler = async (req, res, next) => {
         error: true,
         message: 'Oops! We had a problem! Please try again later.',
       });
-      console.log('ERRORRRRR 1');
-      dbCon.destroy();
+      console.log('ERRORRRRR 1 - RECONNECTING!');
+      reconnect();
     }
   });
 };
@@ -50,8 +50,8 @@ export const postUser: RequestHandler = async (req, res, next) => {
           });
         }
         console.log(err);
-        console.log('ERRORRRRR 2');
-        dbCon.destroy();
+        console.log('ERRORRRRR 2 - RECONNECTING!');
+        reconnect();
       }
     }
   );

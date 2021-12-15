@@ -14,3 +14,14 @@ dbCon.connect(function (err) {
 });
 
 export default dbCon;
+
+export function reconnect() {
+  console.log('RECONNECTING!');
+  dbCon.destroy();
+  dbCon.connect(function (err) {
+    if (err) {
+      return console.error('*************** error: ' + err.message);
+    }
+    console.log('Connected to the MySQL server.');
+  });
+}

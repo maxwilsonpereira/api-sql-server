@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteAllUsers = exports.deleteUser = exports.updateUser = exports.postUser = exports.getUsers = void 0;
 // import bcrypt from 'bcryptjs'; // npm install --save bcryptjs
 const dbCon_1 = __importDefault(require("../dbCon"));
+const user_1 = require("../models/user");
 // GET ALL USERS ****************************************
 const getUsers = async (req, res, next) => {
     console.log('OUTSIDE ERRORRRRR 1');
@@ -19,8 +20,8 @@ const getUsers = async (req, res, next) => {
                 error: true,
                 message: 'Oops! We had a problem! Please try again later.',
             });
-            console.log('ERRORRRRR 1');
-            dbCon_1.default.destroy();
+            console.log('ERRORRRRR 1 - RECONNECTING!');
+            user_1.reconnect();
         }
     });
 };
@@ -51,8 +52,8 @@ const postUser = async (req, res, next) => {
                 });
             }
             console.log(err);
-            console.log('ERRORRRRR 2');
-            dbCon_1.default.destroy();
+            console.log('ERRORRRRR 2 - RECONNECTING!');
+            user_1.reconnect();
         }
     });
 };
