@@ -1,27 +1,54 @@
 import { RequestHandler } from 'express';
+import mysql from 'mysql2'; // npm i mysql2
 // import bcrypt from 'bcryptjs'; // npm install --save bcryptjs
-import dbCon, { reconnect } from '../dbCon';
+// import dbCon, { reconnect } from '../dbCon';
 import { user } from '../models/user';
 
 // GET ALL USERS ****************************************
 export const getUsers: RequestHandler = async (req, res, next) => {
+  const dbCon = mysql.createConnection({
+    database: process.env.database,
+    user: process.env.user,
+    password: process.env.password,
+    host: process.env.host,
+  });
+  dbCon.connect(function (err) {
+    if (err) {
+      return console.error(err.message);
+    }
+    console.log('Connected to the MySQL server.');
+  });
+
   dbCon.query('SELECT * FROM users', (err: any, result: user[]) => {
     if (!err) {
       res.send(result);
+      dbCon.destroy();
     } else {
       console.log(err);
       res.send({
         error: true,
         message: 'Oops! We had a problem! Please try again later.',
       });
-      console.log('ERRORRRRR 1 - RECONNECTING!');
-      reconnect(dbCon);
+      dbCon.destroy();
     }
   });
 };
 
 // CREATE USER ****************************************
 export const postUser: RequestHandler = async (req, res, next) => {
+  const dbCon = mysql.createConnection({
+    database: process.env.database,
+    user: process.env.user,
+    password: process.env.password,
+    host: process.env.host,
+  });
+  dbCon.connect(function (err) {
+    if (err) {
+      return console.error(err.message);
+    }
+    console.log('Connected to the MySQL server.');
+  });
+
   const firstname = req.body.firstname;
   const surname = req.body.surname;
   const birthday = req.body.birthday;
@@ -36,15 +63,18 @@ export const postUser: RequestHandler = async (req, res, next) => {
     (err, result: any) => {
       if (!err) {
         res.send({ message: 'User created!', id: result.insertId });
+        dbCon.destroy();
       } else {
         if (err.code === 'ER_DUP_ENTRY') {
           res.send({ error: true, message: 'Email already registered!' });
+          dbCon.destroy();
         } else {
           console.log(err);
           res.send({
             error: true,
             message: 'Oops! We had a problem! Please try again later.',
           });
+          dbCon.destroy();
         }
       }
     }
@@ -53,6 +83,19 @@ export const postUser: RequestHandler = async (req, res, next) => {
 
 // UPDATE USER ****************************************
 export const updateUser: RequestHandler = async (req, res, next) => {
+  const dbCon = mysql.createConnection({
+    database: process.env.database,
+    user: process.env.user,
+    password: process.env.password,
+    host: process.env.host,
+  });
+  dbCon.connect(function (err) {
+    if (err) {
+      return console.error(err.message);
+    }
+    console.log('Connected to the MySQL server.');
+  });
+
   const id = req.body.id;
   const firstname = req.body.firstname;
   const surname = req.body.surname;
@@ -66,14 +109,18 @@ export const updateUser: RequestHandler = async (req, res, next) => {
     (err, result) => {
       if (!err) {
         res.send(result);
+        dbCon.destroy();
       } else {
-        if (err.code === 'ER_DUP_ENTRY')
+        if (err.code === 'ER_DUP_ENTRY') {
           res.send({ error: true, message: 'Email already registered!' });
-        else
+          dbCon.destroy();
+        } else {
           res.send({
             error: true,
             message: 'Oops! We had a problem! Please try again later.',
           });
+          dbCon.destroy();
+        }
       }
     }
   );
@@ -81,23 +128,53 @@ export const updateUser: RequestHandler = async (req, res, next) => {
 
 // DELETE  USER ****************************************
 export const deleteUser: RequestHandler = async (req, res, next) => {
+  const dbCon = mysql.createConnection({
+    database: process.env.database,
+    user: process.env.user,
+    password: process.env.password,
+    host: process.env.host,
+  });
+  dbCon.connect(function (err) {
+    if (err) {
+      return console.error(err.message);
+    }
+    console.log('Connected to the MySQL server.');
+  });
+
   const id = req.params.id;
   dbCon.query('DELETE FROM users WHERE id = ?', id, (err, result) => {
     if (!err) {
       res.send(result);
+      dbCon.destroy();
     } else {
       console.log(err);
+      dbCon.destroy();
     }
   });
 };
 
 // DELETE ALL USERS ****************************************
 export const deleteAllUsers: RequestHandler = async (req, res, next) => {
+  const dbCon = mysql.createConnection({
+    database: process.env.database,
+    user: process.env.user,
+    password: process.env.password,
+    host: process.env.host,
+  });
+  dbCon.connect(function (err) {
+    if (err) {
+      return console.error(err.message);
+    }
+    console.log('Connected to the MySQL server.');
+  });
+
   dbCon.query('DELETE FROM users', (err) => {
     if (!err) {
       res.send('All users deleted!');
+      dbCon.destroy();
     } else {
       console.log(err);
+      dbCon.destroy();
     }
   });
 };
