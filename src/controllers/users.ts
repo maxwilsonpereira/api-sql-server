@@ -1,7 +1,7 @@
 import { RequestHandler } from 'express';
 // import bcrypt from 'bcryptjs'; // npm install --save bcryptjs
-import dbCon from '../dbCon';
-import { user, reconnect } from '../models/user';
+import dbCon, { reconnect } from '../dbCon';
+import { user } from '../models/user';
 
 // GET ALL USERS ****************************************
 export const getUsers: RequestHandler = async (req, res, next) => {

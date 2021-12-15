@@ -16,7 +16,7 @@ dbCon.connect(function (err) {
 export default dbCon;
 
 export function reconnect() {
-  console.log('RECONNECTING!');
+  console.log('RECONNECTING LOST CONNECTION!');
   dbCon.destroy();
   dbCon.connect(function (err) {
     if (err) {
