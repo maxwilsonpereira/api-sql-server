@@ -36,7 +36,7 @@ const getUsers = async (req, res, next) => {
                 message: 'Oops! We had a problem! Please try again later.',
             });
             console.log('ERRORRRRR 1 - RECONNECTING!');
-            dbCon_1.reconnect();
+            dbCon_1.reconnect(dbCon_1.default);
         }
     });
 };
@@ -68,7 +68,7 @@ const postUser = async (req, res, next) => {
             }
             console.log(err);
             console.log('ERRORRRRR 2 - RECONNECTING!');
-            dbCon_1.reconnect();
+            dbCon_1.reconnect(dbCon_1.default);
         }
     });
 };

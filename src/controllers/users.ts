@@ -17,7 +17,7 @@ export const getUsers: RequestHandler = async (req, res, next) => {
         message: 'Oops! We had a problem! Please try again later.',
       });
       console.log('ERRORRRRR 1 - RECONNECTING!');
-      reconnect();
+      reconnect(dbCon);
     }
   });
 };
@@ -51,7 +51,7 @@ export const postUser: RequestHandler = async (req, res, next) => {
         }
         console.log(err);
         console.log('ERRORRRRR 2 - RECONNECTING!');
-        reconnect();
+        reconnect(dbCon);
       }
     }
   );
