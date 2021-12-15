@@ -1,28 +1,14 @@
 import { RequestHandler } from 'express';
 import mysql from 'mysql2'; // npm i mysql2
-// import bcrypt from 'bcryptjs'; // npm install --save bcryptjs
-import { ConnectionDB } from '../dbCon';
+import { Connection } from './connection';
 import { user } from '../models/user';
 
 // GET ALL USERS ****************************************
 export const getUsers: RequestHandler = async (req, res, next) => {
-  // const dbCon = mysql.createConnection({
-  //   database: process.env.database,
-  //   user: process.env.user,
-  //   password: process.env.password,
-  //   host: process.env.host,
-  // });
-  // dbCon.connect(function (err) {
-  //   if (err) {
-  //     return console.error(err.message);
-  //   }
-  //   console.log('Connected to the MySQL server.');
-  // });
+  const connection = new Connection();
+  const dbCon = connection.dbCon;
+  connection.connect();
 
-  const dbConClass = new ConnectionDB();
-  const dbCon = dbConClass.dbCon;
-  dbConClass.connect();
-  console.log('**********AAAAAAAAAAAAAAAAAAAA ');
   dbCon.query('SELECT * FROM users', (err: any, result: user[]) => {
     if (!err) {
       res.send(result);
@@ -40,18 +26,9 @@ export const getUsers: RequestHandler = async (req, res, next) => {
 
 // CREATE USER ****************************************
 export const postUser: RequestHandler = async (req, res, next) => {
-  const dbCon = mysql.createConnection({
-    database: process.env.database,
-    user: process.env.user,
-    password: process.env.password,
-    host: process.env.host,
-  });
-  dbCon.connect(function (err) {
-    if (err) {
-      return console.error(err.message);
-    }
-    console.log('Connected to the MySQL server.');
-  });
+  const connection = new Connection();
+  const dbCon = connection.dbCon;
+  connection.connect();
 
   const firstname = req.body.firstname;
   const surname = req.body.surname;
@@ -87,18 +64,9 @@ export const postUser: RequestHandler = async (req, res, next) => {
 
 // UPDATE USER ****************************************
 export const updateUser: RequestHandler = async (req, res, next) => {
-  const dbCon = mysql.createConnection({
-    database: process.env.database,
-    user: process.env.user,
-    password: process.env.password,
-    host: process.env.host,
-  });
-  dbCon.connect(function (err) {
-    if (err) {
-      return console.error(err.message);
-    }
-    console.log('Connected to the MySQL server.');
-  });
+  const connection = new Connection();
+  const dbCon = connection.dbCon;
+  connection.connect();
 
   const id = req.body.id;
   const firstname = req.body.firstname;
@@ -132,18 +100,9 @@ export const updateUser: RequestHandler = async (req, res, next) => {
 
 // DELETE  USER ****************************************
 export const deleteUser: RequestHandler = async (req, res, next) => {
-  const dbCon = mysql.createConnection({
-    database: process.env.database,
-    user: process.env.user,
-    password: process.env.password,
-    host: process.env.host,
-  });
-  dbCon.connect(function (err) {
-    if (err) {
-      return console.error(err.message);
-    }
-    console.log('Connected to the MySQL server.');
-  });
+  const connection = new Connection();
+  const dbCon = connection.dbCon;
+  connection.connect();
 
   const id = req.params.id;
   dbCon.query('DELETE FROM users WHERE id = ?', id, (err, result) => {
@@ -159,18 +118,9 @@ export const deleteUser: RequestHandler = async (req, res, next) => {
 
 // DELETE ALL USERS ****************************************
 export const deleteAllUsers: RequestHandler = async (req, res, next) => {
-  const dbCon = mysql.createConnection({
-    database: process.env.database,
-    user: process.env.user,
-    password: process.env.password,
-    host: process.env.host,
-  });
-  dbCon.connect(function (err) {
-    if (err) {
-      return console.error(err.message);
-    }
-    console.log('Connected to the MySQL server.');
-  });
+  const connection = new Connection();
+  const dbCon = connection.dbCon;
+  connection.connect();
 
   dbCon.query('DELETE FROM users', (err) => {
     if (!err) {
