@@ -8,6 +8,7 @@ exports.deleteAllUsers = exports.deleteUser = exports.updateUser = exports.postU
 const dbCon_1 = __importDefault(require("../dbCon"));
 // GET ALL USERS ****************************************
 const getUsers = async (req, res, next) => {
+    console.log('OUTSIDE ERRORRRRR 1');
     dbCon_1.default.query('SELECT * FROM users', (err, result) => {
         if (!err) {
             res.send(result);
@@ -18,6 +19,7 @@ const getUsers = async (req, res, next) => {
                 error: true,
                 message: 'Oops! We had a problem! Please try again later.',
             });
+            console.log('ERRORRRRR 1');
             dbCon_1.default.destroy();
         }
     });
@@ -25,6 +27,7 @@ const getUsers = async (req, res, next) => {
 exports.getUsers = getUsers;
 // CREATE USER ****************************************
 const postUser = async (req, res, next) => {
+    console.log('OUTSIDE ERRORRRRR 2');
     const firstname = req.body.firstname;
     const surname = req.body.surname;
     const birthday = req.body.birthday;
@@ -48,6 +51,7 @@ const postUser = async (req, res, next) => {
                 });
             }
             console.log(err);
+            console.log('ERRORRRRR 2');
             dbCon_1.default.destroy();
         }
     });

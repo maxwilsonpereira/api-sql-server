@@ -5,6 +5,8 @@ import { user } from '../models/user';
 
 // GET ALL USERS ****************************************
 export const getUsers: RequestHandler = async (req, res, next) => {
+  console.log('OUTSIDE ERRORRRRR 1');
+
   dbCon.query('SELECT * FROM users', (err: any, result: user[]) => {
     if (!err) {
       res.send(result);
@@ -14,6 +16,7 @@ export const getUsers: RequestHandler = async (req, res, next) => {
         error: true,
         message: 'Oops! We had a problem! Please try again later.',
       });
+      console.log('ERRORRRRR 1');
       dbCon.destroy();
     }
   });
@@ -21,6 +24,8 @@ export const getUsers: RequestHandler = async (req, res, next) => {
 
 // CREATE USER ****************************************
 export const postUser: RequestHandler = async (req, res, next) => {
+  console.log('OUTSIDE ERRORRRRR 2');
+
   const firstname = req.body.firstname;
   const surname = req.body.surname;
   const birthday = req.body.birthday;
@@ -45,6 +50,7 @@ export const postUser: RequestHandler = async (req, res, next) => {
           });
         }
         console.log(err);
+        console.log('ERRORRRRR 2');
         dbCon.destroy();
       }
     }
