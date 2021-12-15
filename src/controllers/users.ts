@@ -1,24 +1,28 @@
 import { RequestHandler } from 'express';
 import mysql from 'mysql2'; // npm i mysql2
 // import bcrypt from 'bcryptjs'; // npm install --save bcryptjs
-// import dbCon, { reconnect } from '../dbCon';
+import { ConnectionDB } from '../dbCon';
 import { user } from '../models/user';
 
 // GET ALL USERS ****************************************
 export const getUsers: RequestHandler = async (req, res, next) => {
-  const dbCon = mysql.createConnection({
-    database: process.env.database,
-    user: process.env.user,
-    password: process.env.password,
-    host: process.env.host,
-  });
-  dbCon.connect(function (err) {
-    if (err) {
-      return console.error(err.message);
-    }
-    console.log('Connected to the MySQL server.');
-  });
+  // const dbCon = mysql.createConnection({
+  //   database: process.env.database,
+  //   user: process.env.user,
+  //   password: process.env.password,
+  //   host: process.env.host,
+  // });
+  // dbCon.connect(function (err) {
+  //   if (err) {
+  //     return console.error(err.message);
+  //   }
+  //   console.log('Connected to the MySQL server.');
+  // });
 
+  const dbConClass = new ConnectionDB();
+  const dbCon = dbConClass.dbCon;
+  dbConClass.connect();
+  console.log('**********AAAAAAAAAAAAAAAAAAAA ');
   dbCon.query('SELECT * FROM users', (err: any, result: user[]) => {
     if (!err) {
       res.send(result);
