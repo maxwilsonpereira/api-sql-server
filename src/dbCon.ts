@@ -8,7 +8,7 @@ const dbCon = mysql.createConnection({
 });
 dbCon.connect(function (err) {
   if (err) {
-    return console.error('error: ' + err.message);
+    return console.error('*************** error: ' + err.message);
   }
   console.log('Connected to the MySQL server.');
 });

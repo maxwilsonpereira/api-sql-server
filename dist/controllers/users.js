@@ -11,7 +11,6 @@ const getUsers = async (req, res, next) => {
     dbCon_1.default.query('SELECT * FROM users', (err, result) => {
         if (!err) {
             res.send(result);
-            console.log(result);
         }
         else {
             console.log(err);
@@ -25,7 +24,6 @@ const getUsers = async (req, res, next) => {
 exports.getUsers = getUsers;
 // CREATE USER ****************************************
 const postUser = async (req, res, next) => {
-    console.log('SERVER ERROR postUser');
     const firstname = req.body.firstname;
     const surname = req.body.surname;
     const birthday = req.body.birthday;
