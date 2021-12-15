@@ -18,10 +18,12 @@ export default dbCon;
 export function reconnect(dbConProps: any) {
   console.log('RECONNECTING LOST CONNECTION!');
   dbConProps.destroy();
-  dbConProps.connect(function (err: any) {
-    if (err) {
-      return console.error('*************** error: ' + err.message);
-    }
-    console.log('Connected to the MySQL server.');
-  });
+  setTimeout(() => {
+    dbConProps.connect(function (err: any) {
+      if (err) {
+        return console.error('*************** error: ' + err.message);
+      }
+      console.log('Connected to the MySQL server.');
+    });
+  }, 1000);
 }

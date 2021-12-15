@@ -5,8 +5,6 @@ import { user } from '../models/user';
 
 // GET ALL USERS ****************************************
 export const getUsers: RequestHandler = async (req, res, next) => {
-  console.log('OUTSIDE ERRORRRRR 1');
-
   dbCon.query('SELECT * FROM users', (err: any, result: user[]) => {
     if (!err) {
       res.send(result);
@@ -24,8 +22,6 @@ export const getUsers: RequestHandler = async (req, res, next) => {
 
 // CREATE USER ****************************************
 export const postUser: RequestHandler = async (req, res, next) => {
-  console.log('OUTSIDE ERRORRRRR 2');
-
   const firstname = req.body.firstname;
   const surname = req.body.surname;
   const birthday = req.body.birthday;
@@ -44,14 +40,12 @@ export const postUser: RequestHandler = async (req, res, next) => {
         if (err.code === 'ER_DUP_ENTRY') {
           res.send({ error: true, message: 'Email already registered!' });
         } else {
+          console.log(err);
           res.send({
             error: true,
             message: 'Oops! We had a problem! Please try again later.',
           });
         }
-        console.log(err);
-        console.log('ERRORRRRR 2 - RECONNECTING!');
-        reconnect(dbCon);
       }
     }
   );
@@ -80,7 +74,6 @@ export const updateUser: RequestHandler = async (req, res, next) => {
             error: true,
             message: 'Oops! We had a problem! Please try again later.',
           });
-        dbCon.destroy();
       }
     }
   );
@@ -94,7 +87,6 @@ export const deleteUser: RequestHandler = async (req, res, next) => {
       res.send(result);
     } else {
       console.log(err);
-      dbCon.destroy();
     }
   });
 };
@@ -106,7 +98,6 @@ export const deleteAllUsers: RequestHandler = async (req, res, next) => {
       res.send('All users deleted!');
     } else {
       console.log(err);
-      dbCon.destroy();
     }
   });
 };

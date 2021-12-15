@@ -24,7 +24,6 @@ exports.deleteAllUsers = exports.deleteUser = exports.updateUser = exports.postU
 const dbCon_1 = __importStar(require("../dbCon"));
 // GET ALL USERS ****************************************
 const getUsers = async (req, res, next) => {
-    console.log('OUTSIDE ERRORRRRR 1');
     dbCon_1.default.query('SELECT * FROM users', (err, result) => {
         if (!err) {
             res.send(result);
@@ -43,7 +42,6 @@ const getUsers = async (req, res, next) => {
 exports.getUsers = getUsers;
 // CREATE USER ****************************************
 const postUser = async (req, res, next) => {
-    console.log('OUTSIDE ERRORRRRR 2');
     const firstname = req.body.firstname;
     const surname = req.body.surname;
     const birthday = req.body.birthday;
@@ -61,14 +59,12 @@ const postUser = async (req, res, next) => {
                 res.send({ error: true, message: 'Email already registered!' });
             }
             else {
+                console.log(err);
                 res.send({
                     error: true,
                     message: 'Oops! We had a problem! Please try again later.',
                 });
             }
-            console.log(err);
-            console.log('ERRORRRRR 2 - RECONNECTING!');
-            dbCon_1.reconnect(dbCon_1.default);
         }
     });
 };
@@ -94,7 +90,6 @@ const updateUser = async (req, res, next) => {
                     error: true,
                     message: 'Oops! We had a problem! Please try again later.',
                 });
-            dbCon_1.default.destroy();
         }
     });
 };
@@ -108,7 +103,6 @@ const deleteUser = async (req, res, next) => {
         }
         else {
             console.log(err);
-            dbCon_1.default.destroy();
         }
     });
 };
@@ -121,7 +115,6 @@ const deleteAllUsers = async (req, res, next) => {
         }
         else {
             console.log(err);
-            dbCon_1.default.destroy();
         }
     });
 };
