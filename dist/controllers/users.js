@@ -18,6 +18,7 @@ const getUsers = async (req, res, next) => {
                 error: true,
                 message: 'Oops! We had a problem! Please try again later.',
             });
+            dbCon_1.default.destroy();
         }
     });
 };
@@ -47,6 +48,7 @@ const postUser = async (req, res, next) => {
                 });
             }
             console.log(err);
+            dbCon_1.default.destroy();
         }
     });
 };
@@ -72,6 +74,7 @@ const updateUser = async (req, res, next) => {
                     error: true,
                     message: 'Oops! We had a problem! Please try again later.',
                 });
+            dbCon_1.default.destroy();
         }
     });
 };
@@ -85,6 +88,7 @@ const deleteUser = async (req, res, next) => {
         }
         else {
             console.log(err);
+            dbCon_1.default.destroy();
         }
     });
 };
@@ -97,6 +101,7 @@ const deleteAllUsers = async (req, res, next) => {
         }
         else {
             console.log(err);
+            dbCon_1.default.destroy();
         }
     });
 };
